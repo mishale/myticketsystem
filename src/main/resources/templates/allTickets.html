@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Events</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #DCF7F6, #134F4D);
+        }
+        h1{
+            margin-bottom: 4vh;
+        }
+        .navbar-custom {
+            background-color: #5DA19E;
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: #fff;
+        }
+        .navbar-custom .navbar-toggler {
+            border-color: #fff;
+        }
+        .navbar-custom .navbar-toggler-icon {
+            background-color: #fff;
+        }
+        .navbar-custom .nav-item:hover {
+            background-color: #DCF7F6;
+        }
+        .card-img {
+            margin-bottom: 10px;
+        }
+        .ticket-card {
+            background-color: #5DA19E;
+            margin-bottom: 20px;
+        }
+        .ticket-card:hover {
+            background-color: #134F4D;
+            box-shadow: 0.1em 0.1em;
+        }
+        .ticket-header,
+        .ticket-footer {
+            background-color: #DCF7F6;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">MyTicketSystem</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/newLocation">neues Event</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/allTickets">alle Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/allTickets2">alle Tickets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qrscanner">QR-Code-Scanner</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1>Alle Events im Überblick</h1>
+        <div class="row">
+            <div class="col-md-4 mb-4" th:each="event : ${events}">
+                <div class="card ticket-card">
+                    <div class="ticket-header">
+                        <h5 class="card-title" th:text="${event.name}">Event Name</h5>
+                    </div>
+                    <div class="card-body">
+                        <img class="card-img" th:src="@{${event.imagePath}}" alt="Event Image">
+                        <p class="card-text"><strong>City:</strong> <span th:text="${event.city}">City</span></p>
+                        <p class="card-text"><strong>Date:</strong> <span th:text="${#dates.format(event.eventDate, 'yyyy-MM-dd')}">Event Date</span></p>
+                        <p class="card-text"><strong>Hint:</strong> <span th:text="${event.hint}">Event Hint</span></p>
+                        <!--<a th:href="@{/allTickets2(eventId=${event.id})}" class="btn btn-primary mt-2">Ticket erstellen</a>-->
+                       <!-- <form th:action="@{/tickets}" method="post">
+                            <input type="hidden" name="eventId" th:value="${event.id}">
+                            <input type="hidden" name="userId" th:value="${users.id}">
+                            <button type="submit" class="btn btn-primary mt-2">teilnehmen</button>
+                        </form>-->
+                    <!--<a th:href="@{/tickets/{id}(id=${event.id})}" class="btn btn-primary mt-2">teilnehmen</a>-->
+                    <form th:action="@{/allTickets2}" method="post">
+                        <input type="hidden" name="eventId" th:value="${event.id}">
+                        <button type="submit" class="btn btn-primary mt-2">Ticket erstellen</button>
+                    </form>
+                    </div>
+                    <div class="ticket-footer">
+                        <small class="text-muted">Event ID: <span th:text="${event.id}">ID</span></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

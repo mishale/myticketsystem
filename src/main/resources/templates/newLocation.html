@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #DCF7F6, #134F4D);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .navbar-custom {
+            background-color: #5DA19E;
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: #fff;
+        }
+        .navbar-custom .navbar-toggler {
+            border-color: #fff;
+        }
+        .navbar-custom .navbar-toggler-icon {
+            background-color: #fff;
+        }
+        .navbar-custom .nav-item:hover {
+            background-color: #DCF7F6;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .upload-form-container {
+            background-color: #DCF7F6;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        .upload-form-container h2 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">MyTicketSystem</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/newLocation">neues Event</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/allTickets">alle Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/allTickets2">alle Tickets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qrscanner">QR-Code-Scanner</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="upload-form-container">
+            <h2>Füge hier eine neue Location hinzu</h2>
+            <form action="/events" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <input class="form-control" type="date" id="eventDate" name="eventDate">
+                </div>
+                <div class="mb-3">
+                    <label for="image"></label><input type="file" name="image">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" type="text" id="city" name="city" placeholder="Stadt">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" type="text" id="name" name="name" placeholder="Name">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" type="text" id="hint" name="hint" placeholder="Hinweis">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+

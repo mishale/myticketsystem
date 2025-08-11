@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #DCF7F6, #134F4D);
+        }
+        .navbar-custom {
+            background-color: #5DA19E;
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: #fff;
+        }
+        .navbar-custom .navbar-toggler {
+            border-color: #fff;
+        }
+        .navbar-custom .navbar-toggler-icon {
+            background-color: #fff;
+        }
+        .ticket-card {
+            background-color: #DCF7F6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .ticket-header,
+        .ticket-footer {
+            background-color: #DCF7F6;
+            padding: 10px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #qrcode {
+            width: 50vw;
+            max-width: 300px;
+            height: auto;
+        }
+        .card-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">MyTicketSystem</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/newLocation">neues Event</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/allTickets">alle Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/allTickets2">alle Tickets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qrscanner">QR-Code-Scanner</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="card ticket-card">
+            <div class="ticket-header">
+                <h5 class="card-title" th:text="${ticket.event.name}">Event Name</h5>
+            </div>
+            <div class="card-body">
+                <img th:src="${ticket.event.qrCodePath}" alt="QR Code">
+            </div>
+            <form id="deleteForm-${ticket.id}" class="d-inline">
+                <input type="hidden" name="_method" value="DELETE"/>
+                <button type="button" onclick="deleteTicket('${ticket.id}')" class="btn btn-danger">Ticket löschen</button>
+            </form>
+            <div class="ticket-footer">
+                <small class="text-muted" th:text="'Ticket-ID: ' + ${ticket.id}">Ticket-ID: </small>
+            </div>
+        </div>
+    </div>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function deleteTicket(ticketId) {
+            if (confirm('Sind Sie sicher, dass Sie dieses Ticket löschen möchten?')) {
+                fetch('/tickets/' + ticketId, {
+                    method: 'DELETE'
+                }).then(function(response) {
+                    window.location.href = '/allTickets2'; // Redirect to allTickets2 after deletion
+                }).catch(function(error) {
+                    console.error('Error deleting ticket:', error);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
