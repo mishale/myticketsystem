@@ -22,19 +22,19 @@ It provides a complete **ticket management system** for events, including user a
 - **H2 Database** – in-memory or file-based storage
 
 
-## 📊 API Endpoints
+## API Endpoints
 
-### 👤 Users
+###  Users
 - `POST /users` – create new user  
 - `GET /users` – list all users  
 - `GET /users/{id}` – get user by ID  
 
-### 🎉 Events
+###  Events
 - `POST /events` – create event  
 - `GET /events` – list all events  
 - `GET /events/{id}` – get event by ID  
 
-### 🎟️ Tickets
+###  Tickets
 - `POST /tickets` – create ticket for event  
 - `GET /tickets` – list all tickets  
 - `GET /tickets/{id}` – get ticket by ID  
@@ -42,16 +42,11 @@ It provides a complete **ticket management system** for events, including user a
 
 ---
 
-## 📱 QR Code Validation
+##  QR Code Validation
 Each ticket gets a **unique QR code**.  
 When scanned, the backend checks:
 - ✅ If the ticket exists  
 - ✅ If it belongs to the correct event  
 - ✅ If it is already used or still valid  
-
----
-
-## 🤝 Contributing
-Contributions are welcome! Please fork the repo and create a pull request.
 
 ---
